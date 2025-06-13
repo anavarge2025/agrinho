@@ -26,25 +26,67 @@ h1 {
     gap: 2rem;
 }
 
+/* Cartão base com perspectiva para efeito flip */
 .cartao {
-    background-color: var(--card-front-color);
-    padding: 1rem;
-    border-radius: 1rem;
     width: 300px;
-    min-height: 250px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: transform 0.3s;
+    height: 250px;
+    perspective: 1000px;
+    cursor: pointer;
+    /* Se quiser, pode manter a sombra do seu CSS */
+    /* box-shadow: 0 4px 8px rgba(0,0,0,0.3); */
 }
 
-.cartao:hover {
-    transform: scale(1.05);
+/* Conteúdo do cartão que gira */
+.cartao__conteudo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Quando virar o cartão */
+.cartao.flipped .cartao__conteudo {
+    transform: rotateY(180deg);
+}
+
+/* Frente e verso do cartão */
+.cartao__frente,
+.cartao__verso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Frente do cartão */
+.cartao__frente {
+    background-color: var(--card-front-color);
+    color: var(--text-color);
+}
+
+/* Verso do cartão */
+.cartao__verso {
+    background-color: var(--card-back-color);
+    color: #000;
+    transform: rotateY(180deg);
 }
 
 .cartao h3 {
-    color: var(--text-color);
     margin-bottom: 1rem;
 }
 
+/* Mantendo o seu estilo das perguntas e respostas */
 .cartao__conteudo__pergunta p,
 .cartao__conteudo__resposta p {
     margin: 0.5rem 0;
